@@ -5,12 +5,13 @@ import { LayoutsComponent } from './components/layouts/layouts.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { OrderComponent } from './components/order/order.component';
 import { ProductAddComponent } from './components/product/product-add/product-add.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '', component: LayoutsComponent, children: [
       { path: '', component: HomeComponent },
-      { path: 'product-add', component: ProductAddComponent },
+      { path: 'product-add', canActivate:[AuthGuard] , component: ProductAddComponent },
       { path: 'orders', component: OrderComponent }
     ],
   },
