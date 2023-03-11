@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { BasketService } from 'src/app/services/basket.service';
 
 @Component({
   selector: 'app-payment',
@@ -7,15 +8,21 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class PaymentComponent {
 
-  @Input() totalPrice: number = 0;
+  totalPrice: number = 0;
   @Output() myEvent = new EventEmitter();
 
-  constructor() { }
+  constructor(
+    private basketService: BasketService
+  ) { }
 
   ngOnInit(): void {}
 
-  payment(){
-    this.myEvent.emit({data: this.totalPrice});
+  ngAfterContentChecked() {
+    this.totalPrice = this.basketService.totalPrice;
+  }
+
+  payment() {
+    this.basketService.payment(this.totalPrice);
     document.getElementById("modalCloseButton")?.click();
   }
 

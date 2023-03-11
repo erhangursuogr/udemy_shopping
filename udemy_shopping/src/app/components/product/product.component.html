@@ -4,6 +4,7 @@
             <img src="{{product.image}}" alt="">
             <h5 class="mt-2"> {{product.name}} </h5>
             <h6 class="text-danger">{{product.price | currency: 'TRY':'symbol-narrow':'1.2-2'}}</h6>
+            <span style="font-weight: lighter; font-size: medium;">Kalan Stock : {{product.stock}}</span>
             <div class="row" style="justify-content: center;">
                 <div class="col-md-6">
                     <input id="quantity-{{product.name}}" type="number" class="form-control form-control-sm" min="1"

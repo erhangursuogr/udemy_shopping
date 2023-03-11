@@ -8,15 +8,9 @@ import { BasketModel } from 'src/app/models/basketModel';
 })
 export class HomeComponent {
 
-  baskets: BasketModel[] = [];
-
   constructor() { }
 
   ngOnInit(): void {
-  }
-
-  getBaskets(event: any) {
-    this.baskets = event.data;
   }
 
 }
