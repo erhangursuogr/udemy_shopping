@@ -21,12 +21,21 @@ export class NavbarComponent {
 
   ngOnInit(): void {
     this.baskets = this.basketService.baskets;
-    this.isAuth = this.authService.isAuthenticated();
+    this.authService.isAuthenticated().subscribe((response:any) => {
+      this.isAuth = response;
+      }, (error:any) => {
+        console.log(error);
+      });
   }
 
   ngAfterContentChecked() {
     this.totalPrice = this.basketService.totalPrice;
-    this.isAuth = this.authService.isAuthenticated();
+   // this.isAuth = this.authService.isAuthenticated();
+   this.authService.isAuthenticated().subscribe((response:any) => {
+    this.isAuth = response;
+    }, (error:any) => {
+      console.log(error);
+    });
   }
 
   login(){

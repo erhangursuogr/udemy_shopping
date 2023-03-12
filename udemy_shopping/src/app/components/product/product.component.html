@@ -11,7 +11,8 @@
                         value="1" style="font-weight: 700;">
                 </div>
             </div>
-            <button class="btn btn-success mt-2" (click)="addBasket(product)">Add to Basket</button>
+            <button *ngIf="!isAuth" class="btn btn-success btn-sm mt-2" (click)="addBasket(product)">Add to Basket</button>
+            <button *ngIf="isAuth" class="btn btn-warning btn-sm mt-2" routerLink="/product-update/{{product.id}}" >Product Update</button>
         </div>
     </div>
 </div>

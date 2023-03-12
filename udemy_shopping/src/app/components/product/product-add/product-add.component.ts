@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { ProductModel } from 'src/app/models/productModel';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -9,38 +9,34 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductAddComponent {
 
-  @ViewChild('productName') productName!: ElementRef;
-  @ViewChild('productStock') productStock!: ElementRef;
-  @ViewChild('productPrice') productPrice!: ElementRef;
-  @ViewChild('productImage') productImage!: ElementRef;
+  addForm!: FormGroup;
 
   constructor(
-    private productService: ProductService
+    private productService: ProductService,
+    private formBuilder: FormBuilder
   ) { }
 
-  ngOnInit(): void { }
-
-  addProduct(name: any, stock: any, price: any, image: any) {
-    if (name.value == "" || stock.value == "" || price.value == "") {
-      alert("Please fill in all the fields");
-      return;
-    }
-    let product = new ProductModel();
-    product.name = name.value;
-    product.stock = stock.value;
-    product.price = price.value;
-    product.image = image.value;
-    let status:Boolean = this.productService.addProduct(product);
-    if (status) {
-      this.clearElements();
-    }
+  ngOnInit(): void {
+    this.addFormBuilder();
   }
 
-  clearElements() {
-    this.productName.nativeElement.value = "";
-    this.productStock.nativeElement.value = "";
-    this.productPrice.nativeElement.value = "";
-    this.productImage.nativeElement.value = "https://picsum.photos/150/200";
+  addFormBuilder() {
+    this.addForm = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      stock: ['1', [Validators.required, Validators.min(1)]],
+      price: ['0', [Validators.required, Validators.min(0)]],
+      image: ['https://picsum.photos/150/200', [Validators.required]]
+    });
+  }
+
+  addProduct() {
+    if (this.addForm.valid) {
+      let productModel = Object.assign({}, this.addForm.value);
+      let status: Boolean = this.productService.addProduct(productModel);
+      if (status) {
+        this.addForm.reset();
+      }
+    }
   }
 
 }

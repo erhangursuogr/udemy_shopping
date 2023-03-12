@@ -8,7 +8,7 @@ import { NavbarComponent } from './components/layouts/navbar/navbar.component';
 import { ProductComponent } from './components/product/product.component';
 import { BasketComponent } from './components/basket/basket.component';
 import { PaymentComponent } from './components/payment/payment.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule as BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductAddComponent } from './components/product/product-add/product-add.component';
@@ -16,6 +16,7 @@ import { OrderComponent } from './components/order/order.component';
 import { LayoutsComponent } from './components/layouts/layouts.component';
 import { FooterComponent } from './components/layouts/footer/footer.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
+import { ProductUpdateComponent } from './components/product/product-update/product-update.component';
 
 @NgModule({
   declarations: [
@@ -29,12 +30,14 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
     OrderComponent,
     LayoutsComponent,
     FooterComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    ProductUpdateComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       positionClass: "toast-bottom-right",
