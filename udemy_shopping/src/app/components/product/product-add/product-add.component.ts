@@ -23,9 +23,9 @@ export class ProductAddComponent {
   addFormBuilder() {
     this.addForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
-      stock: ['1', [Validators.required, Validators.min(1)]],
+      inventoryQuantity: ['1', [Validators.required, Validators.min(1)]],
       price: ['0', [Validators.required, Validators.min(0)]],
-      image: ['https://picsum.photos/150/200', [Validators.required]]
+      imageUrl: ['https://picsum.photos/150/200', [Validators.required]]
     });
   }
 

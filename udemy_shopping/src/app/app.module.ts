@@ -17,6 +17,10 @@ import { LayoutsComponent } from './components/layouts/layouts.component';
 import { FooterComponent } from './components/layouts/footer/footer.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { ProductUpdateComponent } from './components/product/product-update/product-update.component';
+import { FilterProductPipe } from './pipes/filter-product.pipe';
+import { HttpClientModule } from '@angular/common/http';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,9 @@ import { ProductUpdateComponent } from './components/product/product-update/prod
     LayoutsComponent,
     FooterComponent,
     NotfoundComponent,
-    ProductUpdateComponent
+    ProductUpdateComponent,
+    FilterProductPipe,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +45,8 @@ import { ProductUpdateComponent } from './components/product/product-update/prod
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    NgxSpinnerModule,
+    HttpClientModule,
     ToastrModule.forRoot({
       positionClass: "toast-bottom-right",
       closeButton: true,

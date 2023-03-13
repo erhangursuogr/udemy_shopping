@@ -30,9 +30,9 @@ export class ProductUpdateComponent {
     this.updateForm = this.formBuilder.group({
       id: [this.productModel.id],
       name: [this.productModel.name, [Validators.required, Validators.minLength(3)]],
-      stock: [this.productModel.stock, [Validators.required, Validators.min(1)]],
+      inventoryQuantity: [this.productModel.inventoryQuantity, [Validators.required, Validators.min(1)]],
       price: [this.productModel.price, [Validators.required, Validators.min(0)]],
-      image: [this.productModel.image, [Validators.required]]
+      imageUrl: [this.productModel.imageUrl, [Validators.required]]
     });
   }
 

@@ -1,4 +1,6 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Output } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { BasketModel } from 'src/app/models/basketModel';
 import { ProductModel } from 'src/app/models/productModel';
@@ -14,8 +16,8 @@ import { ProductService } from 'src/app/services/product.service';
 export class ProductComponent {
 
   products: ProductModel[] = [];
-  baskets: BasketModel[] = [];
   isAuth: boolean = false;
+  filterText: string = "";
 
   @Output() myEvent = new EventEmitter();
 
@@ -23,20 +25,43 @@ export class ProductComponent {
     private toastrService: ToastrService,
     private productService: ProductService,
     private basketService: BasketService,
-    private authService: AuthService
-    ) { }
+    private authService: AuthService,
+    private spinner: NgxSpinnerService
+  ) { }
 
-  ngOnInit(): void {
-    this.productService.getProducts().subscribe((response:any) => {
-      this.products = response;
-    }, (error:any) => {
-      console.log(error);
-    });
+  ngOnInit(): void {       
+    this.getPrdoucts();
+    //this.getPrdoucts2();    
   }
-
 
   ngAfterContentChecked() {
     this.isAuth = this.authService.isAuth;
+  }
+
+  getPrdoucts() {
+    this.spinner.show();
+    this.productService.getProducts().subscribe({
+      next: (res: any) => {
+        setTimeout(() => {
+          this.spinner.hide(); //spinner ends after 0,5 seconds
+        },500);
+        this.products = res.data;
+      },
+      error: (error: HttpErrorResponse) => { 
+        error.status == 404 ? this.toastrService.error("Api Not Found", "Error") : console.log(error)        
+      }
+    });
+  }
+
+  getPrdoucts2() {
+    this.productService.getProducts2().subscribe({
+      next: (res: any) => {
+        this.products = res;
+      },
+      error: (error: HttpErrorResponse) => { 
+        error.status == 404 ? this.toastrService.error("Api Not Found", "Error") : console.log(error) 
+      }
+    });
   }
 
   addBasket(product: ProductModel) {

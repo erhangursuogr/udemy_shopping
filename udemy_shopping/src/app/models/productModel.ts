@@ -1,7 +1,8 @@
 export class ProductModel {
   id?: number;
   name?: string;
-  stock?: number;
+  inventoryQuantity?: number;
   price?: number;
-  image?: string;
+  imageUrl?: string;
+  codeGuid?: string;
 }
